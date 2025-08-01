@@ -4,41 +4,6 @@
 Angular v17 maintain document 
 Bootstrap 5  through npm install 
 
-## Project structure 
-├── src/
-│   ├── app/
-│   │   ├── core/                  # Singleton services, interceptors, auth
-│   │   │   ├── interceptors/
-│   │   │   ├── guards/
-│   │   │   ├── services/
-│   │   │   ├── models/
-│   │   │   ├── utils/
-│   │   │   └── core.module.ts
-│   │   ├── shared/                # Reusable UI components, pipes, directives
-│   │   │   ├── components/
-│   │   │   ├── pipes/
-│   │   │   ├── directives/
-│   │   │   └── shared.module.ts
-│   │   ├── features/pages             # Feature modules by route
-│   │   │   ├── landing/
-│   │   │   ├── components/
-│   │   │   ├── services/
-│   │   │   ├── models/
-│   │   │   └── landing.module.ts
-
-│   │   │   ├── auth/
-│   │   ├── config/                # Constants & app configs
-│   │   ├── app-routing.module.ts
-│   │   └── app.module.ts
-│   ├── assets/
-│   ├── animations/
-│   ├── fonts/
-│   ├── images/
-│   └── scripts/
-
-│   ├── environments/
-│   └── index.html
-
 ## Modules Overview
  Module                                         Description                                      
  CoreModule                                 Auth, guards, interceptors, singleton services   
