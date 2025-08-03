@@ -1,0 +1,31 @@
+$breakpoints: (
+  'medium': (min-width: 800px),
+  'large': (min-width: 1000px),
+  'huge': (min-width: 1200px),
+);
+
+// === MEDIA QUERIES ===
+@mixin tiny-screens() {
+    @media only screen and (max-width: 320px) {
+      @content;
+    }
+  }
+  
+  @mixin small-screens() {
+    @media only screen and (max-width: 480px) {
+      @content;
+    }
+  }
+  
+  @mixin medium-screens() {
+    @media only screen and (max-width: 640px) {
+      @content;
+    }
+  }
+  
+  @mixin medium-large-screens() {
+    @media only screen and (max-width: 960px) {
+      @content;
+    }
+  }
+  

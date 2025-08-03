@@ -1,0 +1,89 @@
+@use "sass:color";
+@import "./variables-colors";
+
+@function sum($left, $right) {
+    @return $left + $right;
+}
+
+@function em($pixels, $context) {
+    @return ($pixels / $context) * 1em;  // / divisition is deprecated use calc is 
+}
+
+@function col-width($columns: 12, $page-width: 100%, $gap: 1%) {
+    @return ($page-width - $gap*($columns - 1)) / $columns;
+  }
+  
+  @function strip-unit($value) {
+    
+    @return $value / ($value*0 + 1);
+  }
+
+  // modules
+  button {
+    $primary-color: #6b717f;
+    color: $primary-color;
+    /* using the funciton scale */
+    border: 1px solid color.scale($primary-color, $lightness: 20%);
+  }
+
+  // ================== SEED PROJECT ================== 
+/// Map deep get
+/// @author Hugo Giraudel
+/// @access public
+/// @param {Map} $map - Map
+/// @param {Arglist} $keys - Key chain
+/// @return {*} - Desired value
+  @function map-deep-get($map, $keys...) {
+    @each $key in $keys {
+        $map: map-get($map, $key);
+    }
+    @return $map;
+}
+
+/// Update a key deeply nested
+/// @author Hugo Giraudel
+/// @param {Map} $map - Map to update
+/// @param {Arglist} $keys - Keys to access to value to update
+/// @param {*} $value - New value (last member of `$keys`)
+/// @return {Map} - Updated map
+@function map-deep-set($map, $keys.../*, $value */) {
+  $map-list: ($map,);
+  $result: null;
+
+  @if length($keys) == 2 {
+    @return map-merge($map, (nth($keys, 1): nth($keys, -1)));
+  }
+
+  @for $i from 1 through length($keys) - 2 {
+    $map-list: append($map-list, map-get(nth($map-list, -1), nth($keys, $i)));
+  }
+
+  @for $i from length($map-list) through 1 {
+    $result: map-merge(nth($map-list, $i), (nth($keys, $i): if($i == length($map-list), nth($keys, -1), $result)));
+  }
+
+  @return $result;
+}
+
+// a map-set function (not included with Sass)
+@function map-set($map, $key, $value) {
+  $new: ($key: $value);
+  @return map-merge($map, $new);
+}
+
+
+// stock overflow 
+
+@function getColor($key: 'default-blue') {
+  @return map-get($my-colors, $key);
+}
+
+@function getColorAlpha($name: 'default-blue', $opacity: 'dark') {
+  $color: getColor($name);
+  // Get the named opacity level, if it exists
+  @if map-has-key($my-opacity, $opacity) {
+    $opacity: map-get($my-opacity, $opacity);
+  }
+  // Use rgba() to manipulate the color's alpha level
+  @return rgba($color, $opacity);
+}

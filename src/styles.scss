@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+// table content 
+// modules
+// Variables
+// mixins/nesting/parent selectors 
+// media queries 
+// inheritance
+// loops
+
+
+// modules 
+@import 'assets/styles/base_abstacts_utilities_helpers_partials/main';
+@import 'assets/styles/components/component'; // footer styles not working cross check is write or wronf
+// @import 'assets/styles/components/buttons';
+
+
+body,
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+
+li {
+  color: getColorAlpha('default-blue', 'light');
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+// ========== Variables =======
+body {
+  background-color: $body-background-color;
+  color: $text-color;
+  // padding: em(12px,16px);
+}
+

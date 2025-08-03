@@ -1,0 +1,47 @@
+
+// === COLORS ===
+$body-background-color: #ffff005c;
+$text-color: #222222;
+$theme-color: #170a48;
+$secondary-color: #f27731;
+$ternary-color: #455226;
+$link-color: $secondary-color;
+$menu-item-color: white;
+
+// === THEME ===
+// Allowed values: Dark, Light, Default
+$theme: Light;
+
+@if $theme == Dark {
+    $text-color: #fff;
+    $body-background-color: #22222a;
+    $theme-color: #42424a;
+    $secondary-color: #c24721;
+    $ternary-color: #698932;
+    $link-color: $secondary-color;
+    $menu-item-color: white;
+  } @else if $theme == Light {
+    $text-color: #000;
+    $body-background-color: #fff;
+    $theme-color: #372a27;
+    $secondary-color: #d26741;
+    $ternary-color: #b9da63;
+    $link-color: $secondary-color;
+    $menu-item-color: white;
+  }
+  
+  $my-colors: ( // i think to declareing group of values we are using ()
+    'default-blue': #0071ce,
+    'blue': #064f8e,
+    'yellow': #f79428,
+    'light-blue': #1888c8,
+    'green': #54a546,
+    'red': #C82022,
+    'pink': #b51e6d,
+    'orange': #e54e26
+  );
+  
+  $my-opacity: (
+    "dark": 1,
+    "light": 0.8
+  );
