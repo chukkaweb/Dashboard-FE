@@ -1,15 +1,56 @@
-:host::ng-deep {
-  .ng-scrollbar {
-    --scrollbar-padding: 1px;
-    --scrollbar-size: 5px;
-    --scrollbar-thumb-color: var(--cui-gray-500, #aab3c5);
-    --scrollbar-thumb-hover-color: var(--cui-gray-400, #cfd4de);
-    --scrollbar-hover-size: calc(var(--scrollbar-size) * 1.5);
-    --scrollbar-border-radius: 5px;
-  }
-  .ng-scroll-content {
+:host {
+  display: flex;
+  min-height: 100vh;
+
+  // Sidebar
+//   .sidebar {
+//     width: 250px;
+//     flex-shrink: 0;
+//     transition: width 0.3s ease;
+
+//     @media (max-width: 768px) {
+//       width: 70px; // collapse for small screens
+//     }
+
+//     // Optional: full height
+//     min-height: 100vh;
+//   }
+
+  // Main wrapper
+  .main-wrapper {
+    flex-grow: 1;
     display: flex;
+    flex-direction: column;
+
+    .header {
+      z-index: 1000;
+    }
+
+    .content {
+      flex-grow: 1;
+      overflow-y: auto;
+      background-color: #f8f9fa;
+      transition: padding 0.3s ease;
+
+      @media (max-width: 768px) {
+        padding: 1rem; // smaller padding for mobile
+      }
+    }
+  }
+
+  // Custom scrollbar
+  ::ng-deep .ng-scrollbar {
+    --scrollbar-padding: 2px;
+    --scrollbar-size: 6px;
+    --scrollbar-thumb-color: #aab3c5;
+    --scrollbar-thumb-hover-color: #cfd4de;
+    --scrollbar-hover-size: calc(var(--scrollbar-size) * 1.5);
+    --scrollbar-border-radius: 8px;
+  }
+
+  ::ng-deep .ng-scroll-content {
+    display: flex;
+    flex-direction: column;
     min-height: 100%;
   }
 }
-
