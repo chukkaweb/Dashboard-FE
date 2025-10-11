@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { ReactiveFormsModule ,  FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 declare const bootstrap: any; // For Bootstrap modal handling
 
@@ -11,48 +13,67 @@ declare const bootstrap: any; // For Bootstrap modal handling
   styleUrl: './login.component.scss'
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  currentStep = 1;
-  modalInstance: any;
+  isLoading = false;
+  errorMessage = '';
 
-  constructor(private fb: FormBuilder) {
+  @ViewChild('mobileInput') mobileInput!: ElementRef;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       mobile: ['', [Validators.required, Validators.pattern('^[6-9]\\d{9}$')]],
-      otp: ['', [Validators.required, Validators.pattern('^\\d{6}$')]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
+  }
+
+  ngOnInit() {
+    this.onModalOpen();
+  }
+
+  ngAfterViewInit() {
+    this.mobileInput.nativeElement.focus();
+  }
+
+  onModalOpen() {
+    this.loginForm.reset(); // ✅ resets fields when modal opens
+    this.errorMessage = '';
   }
 
   get mobile() {
     return this.loginForm.get('mobile');
   }
 
-  get otp() {
-    return this.loginForm.get('otp');
+  get pwd() {
+    return this.loginForm.get('pwd');
   }
 
-  openLoginModal() {
-    this.currentStep = 1;
-    this.loginForm.reset();
-    const modalElement = document.getElementById('loginModal');
-    this.modalInstance = new bootstrap.Modal(modalElement);
-    this.modalInstance.show();
-  }
-
-  onSubmit() {
-    if (this.currentStep === 1 && this.mobile?.valid) {
-      // Simulate OTP send
-      console.log('OTP sent to', this.mobile?.value);
-      this.currentStep = 2;
-    } else if (this.currentStep === 2 && this.otp?.valid) {
-      // Simulate OTP verify
-      console.log('OTP verified:', this.otp?.value);
-      this.modalInstance.hide();
+  restrictToTenDigits(event: any) {
+    const input = event.target as HTMLInputElement;
+    if (input.value.length >= 10 && event.key !== 'Backspace') {
+      event.preventDefault();
     }
   }
 
-  resendOtp() {
-    console.log('OTP resent to', this.mobile?.value);
+  onLogin() {
+    if (this.loginForm.invalid) return;
+    this.isLoading = true;
+    const { mobile, password } = this.loginForm.value;
+
+    this.authService.login(mobile, password).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        this.router.navigate(['/overview']);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorMessage = err.error?.message || 'Invalid username or password';
+      }
+    });
   }
 }
 

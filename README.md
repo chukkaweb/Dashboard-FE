@@ -1,3 +1,13 @@
+## TODO 
+- Implement guard to handle last login (currently requires login every time)
+- End-to-end login flow
+- Excel sheet integration
+- Professional-level API calling (CRUD, table)
+- Security and authentication improvements
+- Add graphs
+- Add analytics
+
+
 ## Dashboard-FE
 ### Tech Stack 
 - **Angular v17**: Maintain document structure.
