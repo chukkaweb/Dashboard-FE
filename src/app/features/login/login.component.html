@@ -2,7 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-md-4">
       <div class="card shadow-lg p-4">
-        <h4 class="text-center mb-4 fw-bold">Login</h4>
+        <!-- <h4 class="text-center mb-4 fw-bold">Login</h4> -->
 
         <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
           <div class="mb-3">
@@ -41,7 +41,7 @@
             class="btn btn-primary w-100"
             [disabled]="!loginForm.valid || isLoading"
           >
-            {{ isLoading ? 'Logging in...' : 'Login' }}
+            {{ isLoading ? 'Logging in...' : 'Submit' }}
           </button>
 
           <div class="text-danger mt-2 text-center" *ngIf="errorMessage">

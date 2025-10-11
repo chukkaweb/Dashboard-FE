@@ -9,4 +9,17 @@ import { Component } from '@angular/core';
 })
 export class MainHeaderComponent {
 
+  userName = 'John Doe';
+  notificationCount = 3;
+
+  logout() {
+    localStorage.removeItem('token');
+    location.href = '/login';
+  }
+
+  toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar?.classList.toggle('show');
+  }
+
 }

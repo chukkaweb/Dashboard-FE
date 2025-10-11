@@ -1,99 +1,69 @@
-<div class="landing-page-container">
-  <header class="header">
-    <div class="logo">
-      <img src="https://placehold.co/40x40/0000FF/FFFFFF?text=T" alt="Trafalgar Logo" class="logo-icon">
-      <span class="logo-text">Trafalgar</span>
+<div class="landing-page">
+  <!-- Header -->
+  <header class="header container-fluid px-4 py-3 d-flex justify-content-between align-items-center shadow-sm">
+    <div class="logo d-flex align-items-center gap-2">
+      <img
+        src="https://placehold.co/40x40/0d6efd/FFFFFF?text=T"
+        alt="Trafalgar Logo"
+        class="logo-icon"
+      />
+      <span class="logo-text fw-bold text-primary fs-4">Trafalgar</span>
     </div>
-    <nav class="nav">
-      <ul class="navbar-nav ms-auto pt-2 pt-lg-0">
+
+    <nav>
+      <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link" (click)="openLoginModal()">Login</a>
+          <a
+            class="btn btn-outline-primary px-4 py-2 fw-medium"
+            data-bs-toggle="modal"
+            data-bs-target="#loginModal"
+          >
+            Login
+          </a>
         </li>
       </ul>
     </nav>
   </header>
 
-  <main class="hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title">Virtual healthcare for you.</h1>
-      <p class="hero-description">
-        Trafalgar provides progressive, and affordable healthcare, accessible on mobile and online for everyone
+  <!-- Hero Section -->
+  <main class="hero container d-flex flex-wrap align-items-center justify-content-between py-5">
+    <div class="hero-text flex-fill text-center text-md-start pe-md-4">
+      <h1 class="display-4 fw-bold mb-3 text-dark">Virtual healthcare for you</h1>
+      <p class="lead text-secondary mb-4">
+        Trafalgar provides progressive and affordable healthcare, accessible
+        online and on mobile for everyone.
       </p>
+      <button class="btn btn-primary btn-lg px-4 py-2">Learn More</button>
     </div>
-    <div class="hero-image">
-      <img src="https://placehold.co/600x400/D3D3D3/000000?text=Healthcare+Illustration" alt="Healthcare Illustration">
+
+    <div class="hero-image flex-fill text-center mt-4 mt-md-0">
+      <img
+        src="https://placehold.co/600x400/D3D3D3/000000?text=Healthcare+Illustration"
+        alt="Healthcare Illustration"
+        class="img-fluid rounded shadow"
+      />
     </div>
   </main>
 
   <!-- Login Modal -->
-  <div *ngIf="showLoginModal" class="modal-overlay" (click)="closeLoginModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <button class="close-button" (click)="closeLoginModal()">&times;</button>
-      <h2 class="modal-title">{{ showOtpInput ? 'Enter OTP' : 'Login' }}</h2>
-
-      <!-- Mobile Number Input Form -->
-      <form *ngIf="!showOtpInput" [formGroup]="loginForm" (ngSubmit)="verifyMobileNumber()">
-        <div class="form-group">
-          <label for="mobileNumber">Mobile Number</label>
-          <input type="tel" id="mobileNumber" formControlName="mobileNumber" placeholder="e.g., 1234567890"
-            maxlength="10" minlength="10" pattern="[0-9]{10}">
-          <div
-            *ngIf="loginForm.get('mobileNumber')?.invalid && (loginForm.get('mobileNumber')?.dirty || loginForm.get('mobileNumber')?.touched)"
-            class="error-message">
-            <div *ngIf="loginForm.get('mobileNumber')?.errors?.['required']">
-              Mobile number is required.
-            </div>
-            <div
-              *ngIf="loginForm.get('mobileNumber')?.errors?.['pattern'] || loginForm.get('mobileNumber')?.errors?.['minlength'] || loginForm.get('mobileNumber')?.errors?.['maxlength']">
-              Please enter a valid 10-digit mobile number.
-            </div>
-          </div>
+  <div
+    class="modal fade"
+    id="loginModal"
+    tabindex="-1"
+    aria-labelledby="loginModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold text-primary" id="loginModalLabel">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <button type="submit" class="verify-button" [disabled]="loginForm.invalid">Verify</button>
-      </form>
 
-      <!-- OTP Input Form -->
-      <form *ngIf="showOtpInput" [formGroup]="otpForm" (ngSubmit)="verifyOtp()">
-        <div class="form-group">
-          <label for="otp">OTP</label>
-          <input type="text" id="otp" formControlName="otp" placeholder="e.g., 9999" maxlength="4" minlength="4"
-            pattern="[0-9]{4}">
-          <div *ngIf="otpForm.get('otp')?.invalid && (otpForm.get('otp')?.dirty || otpForm.get('otp')?.touched)"
-            class="error-message">
-            <div *ngIf="otpForm.get('otp')?.errors?.['required']">
-              OTP is required.
-            </div>
-            <div
-              *ngIf="otpForm.get('otp')?.errors?.['pattern'] || otpForm.get('otp')?.errors?.['minlength'] || otpForm.get('otp')?.errors?.['maxlength']">
-              Please enter a valid 4-digit OTP.
-            </div>
-          </div>
-          <div *ngIf="otpForm.get('otp')?.valid && !isOtpValid && otpForm.get('otp')?.touched" class="error-message">
-            Invalid OTP.
-          </div>
+        <div class="modal-body px-4 pb-4">
+          <app-login></app-login>
         </div>
-        <button type="submit" class="verify-button" [disabled]="otpForm.invalid">Verify OTP</button>
-      </form>
+      </div>
     </div>
   </div>
-
-
-  <!-- Login Modal -->
-  <!-- <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-3">
-
-      <div class="modal-header">
-        <h5 class="modal-title" id="loginModalLabel">
-          {{ currentStep === 1 ? 'Login with Mobile' : 'Verify OTP' }}
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-
-      <div class="modal-body">
-        <app-login></app-login>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div> -->
+</div>

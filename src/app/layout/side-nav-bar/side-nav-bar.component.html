@@ -1,116 +1,39 @@
-<!-- ========== Left Sidebar Start ========== -->
-<div class="vertical-menu">
+<nav id="sidebar"
+  class="sidebar border-end bg-dark text-white d-flex flex-column vh-100 position-fixed"
+  [ngClass]="{ 'collapsed': isCollapsed }">
 
-    <div data-simplebar class="h-100">
+  <!-- Sidebar Header / Brand -->
+  <div class="sidebar-header border-bottom d-flex align-items-center justify-content-between p-3">
+    <a routerLink="/" class="text-decoration-none text-white fw-bold fs-5">
+      <i class="bi bi-bootstrap-fill me-2"></i> MyApp
+    </a>
+    <button class="btn btn-sm btn-outline-light d-lg-none"
+            type="button"
+            (click)="toggleSidebar()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
 
-        <!--- Sidemenu -->
-        <div id="sidebar-menu">
+  <!-- Sidebar Navigation -->
+  <div class="flex-grow-1 overflow-auto">
+    <ul class="nav flex-column p-2">
+      <li class="nav-item" *ngFor="let item of navItems">
+        <a class="nav-link text-white d-flex align-items-center gap-2"
+           [routerLink]="item.path"
+           routerLinkActive="active">
+          <i class="bi" [ngClass]="item.icon"></i>
+          <span *ngIf="!isCollapsed">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 
-            <div class="user-info text-center">
-                <div class="dropdown d-inline-block user-dropdown">
-                    <a href="" class="btn header-item" id="page-header-user-dropdown" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-2.jpg"
-                            alt="Header Avatar">
-                        <h6 class="text-uppercase mb-0 mt-2 pt-1">Jassa Rich</h6>
-                        <p class="text-muted font-size-13">Founder</p>
-                    </a>
-                    <div class="dropdown-menu">
-                        <!-- item-->
-                        <a class="dropdown-item" href="#"><i class="ri-user-line align-middle me-1"></i> Profile</a>
-                        <a class="dropdown-item" href="#"><i class="ri-wallet-2-line align-middle me-1"></i> My
-                            Wallet</a>
-                        <a class="dropdown-item d-block" href="#"><span
-                                class="badge bg-success float-end mt-1">11</span><i
-                                class="ri-settings-2-line align-middle me-1"></i> Settings</a>
-                        <a class="dropdown-item" href="#"><i class="ri-lock-unlock-line align-middle me-1"></i> Lock
-                            screen</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#"><i
-                                class="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
-                    </div>
-                </div>
-
-                <div class="user-graph mt-5 pt-1">
-                    <div id="header-chart" class="apex-charts"></div>
-                    <h6 class="mt-1">Budget $34,652</h6>
-                </div>
-            </div>
-
-            <!-- Left Menu Start -->
-            <ul class="metismenu list-unstyled" id="side-menu">
-                <li class="menu-title">Menu</li>
-
-                <li>
-                    <a href="#" class="waves-effect">
-                        <i class="ri-dashboard-2-line"></i><span
-                            class="badge rounded-pill bg-success float-end">3</span>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <li class="menu-title">Pages</li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-account-circle-line"></i>
-                        <span>Authentication</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">Login</a></li>
-                        <li><a href="#">Register</a></li>
-                        <li><a href="#">Recover Password</a></li>
-
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-pages-line"></i>
-                        <span>Extra Pages</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">Maintenance</a></li>
-                        <li><a href="#">Coming Soon</a></li>
-                        <li><a href="#">Error 404</a></li>
-
-                    </ul>
-                </li>
-
-
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ri-share-line"></i>
-                        <span>Multi Level</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="true">
-                        <li><a href="javascript: void(0);">Level 1.1</a></li>
-                        <li><a href="javascript: void(0);" class="has-arrow">Level 1.2</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);">Level 2.1</a></li>
-                                <li><a href="javascript: void(0);">Level 2.2</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-
-            </ul>
-        </div>
-        <!-- Sidebar -->
-    </div>
-</div>
-<!-- Left Sidebar End -->
+  <!-- Sidebar Footer -->
+  <div class="border-top p-3 d-none d-lg-flex justify-content-center" style="cursor:pointer;">
+    <button class="btn btn-outline-light btn-sm"
+            (click)="toggleSidebar()"
+            aria-label="Toggle sidebar">
+      <i class="bi" [ngClass]="{ 'bi-arrow-bar-left': !isCollapsed, 'bi-arrow-bar-right': isCollapsed }"></i>
+    </button>
+  </div>
+</nav>
