@@ -8,7 +8,7 @@ export const routes: Routes = [
       import('./features/landing-page/landing-page.module').then(m => m.LandingPageModule)
   },
   {
-    path: 'overview',
+    path: 'dashboard',
     // canActivate: [authGuard],
     loadChildren: () =>
       import('./features/dashboard/dashboard.module').then(m => m.DashboardModule)

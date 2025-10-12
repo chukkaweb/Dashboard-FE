@@ -6,6 +6,17 @@ export const DASHBOARD_ROUTES: Routes = [
   {
     path: '',
     component: DashboardComponent,
-    // optional: children: [ ... ] for nested routes
-  }
+    children: [
+      {
+        path: 'overview',
+        loadChildren: () =>
+          import('../overview/overview.module').then(m => m.OverviewModule),
+      },
+      {
+        path: 'products',
+        loadChildren: () =>
+          import('../products/products.module').then(m => m.ProductsModule),
+      }
+    ],
+  },
 ];

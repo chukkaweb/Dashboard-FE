@@ -11,9 +11,8 @@ import { RouterModule } from '@angular/router';
 })
 export class SideNavBarComponent {
   navItems = [
-    { label: 'Dashboard', path: '/dashboard', icon: 'bi-speedometer2' },
-    { label: 'Users', path: '/users', icon: 'bi-people' },
-    { label: 'Settings', path: '/settings', icon: 'bi-gear' }
+    { label: 'Overview', path: '/dashboard/overview', icon: 'bi-speedometer2' },
+    { label: 'Products', path: '/dashboard/products', icon: 'bi-people' }
   ];
 isCollapsed = false;
  get sidebarWidth(): string {
